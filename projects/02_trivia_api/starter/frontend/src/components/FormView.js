@@ -15,16 +15,19 @@ class FormView extends Component {
     }
   }
 
+  requestUrl = ''
+
   componentDidMount(){
     $.ajax({
-      url: `/categories`, //TODO: update request URL
+      url: `/categories`, 
       type: "GET",
       success: (result) => {
         this.setState({ categories: result.categories })
         return;
       },
       error: (error) => {
-        alert('Unable to load categories. Please try your request again')
+        alert('Unable to load categories. Please try your request again ')
+        console.log(error)
         return;
       }
     })
@@ -34,7 +37,7 @@ class FormView extends Component {
   submitQuestion = (event) => {
     event.preventDefault();
     $.ajax({
-      url: '/questions', //TODO: update request URL
+      url: '/questions',
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -91,7 +94,7 @@ class FormView extends Component {
             <select name="category" onChange={this.handleChange}>
               {Object.keys(this.state.categories).map(id => {
                   return (
-                    <option key={id} value={id}>{this.state.categories[id]}</option>
+                    <option key={id} value={id}>{this.state.categories[id].type}</option>
                   )
                 })}
             </select>
